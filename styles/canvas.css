@@ -1,0 +1,19 @@
+.canvas-container{
+    position: relative;
+}
+
+.work-space{
+    width: 100%;
+    height: 100%;
+    transform: scale(1.05);
+    opacity: .3;
+    cursor: none;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: none;
+    cursor: none;
+}

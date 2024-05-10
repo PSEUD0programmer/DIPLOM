@@ -1,208 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+/* Блоки */
+@import "containers.css";
+@import "icon.css";
+@import "btn.css";
+@import "nav.css";
+@import "pallet.css";
+@import "tools.css";
+@import "chat.css";
+@import "footer.css";
+@import "canvas.css";
+@import "user.css";
+
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
     list-style: none;
-
+    -webkit-tap-highlight-color: transparent;
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: burlywood;
+:root {
+    --black: #1B1A19;
+    --white: #D9D9D9;
+    --yellow: #FAC670;
+    --pink: #C0A8E6;
+    --orange: #F37925;
+    --blue: #91C3CE;
+
+    --clr_main_1: var(--black);
+    --clr_main_2: var(--white);
+    --clr_main_3: var(--blue);
+    --clr_main_4: var(--orange);
+
+    --shd_cont_dark: inset 0 -20px 50px rgba(0, 0, 0, 0.1);
+
+    --flt_light: invert(84%) sepia(3%) saturate(24%) hue-rotate(312deg) brightness(98%) contrast(96%);
+    --flt_dark: invert(4%) sepia(2%) saturate(2034%) hue-rotate(349deg) brightness(94%) contrast(87%);
+
+    --svg_brush: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M224 263.3C224.2 233.3 238.4 205.2 262.4 187.2L499.1 9.605C517.7-4.353 543.6-2.965 560.7 12.9C577.7 28.76 580.8 54.54 568.2 74.07L406.5 324.1C391.3 347.7 366.6 363.2 339.3 367.1L224 263.3zM320 400C320 461.9 269.9 512 208 512H64C46.33 512 32 497.7 32 480C32 462.3 46.33 448 64 448H68.81C86.44 448 98.4 429.1 96.59 411.6C96.2 407.8 96 403.9 96 400C96 339.6 143.9 290.3 203.7 288.1L319.8 392.5C319.9 394.1 320 397.5 320 400V400z"/></svg>'
 }
 
-.container {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-    padding: 10px;
-    max-width: 1050px;
+::-webkit-scrollbar {
+    width: 1em;
+    height: .5em;
 }
 
-section {
-    background: white;
-    border-radius: 7px;
+::-webkit-scrollbar-track {
+    background: var(--black);
+    margin-inline: 2em;
 }
 
-.tools-board {
-    width: 210px;
-    padding: 15px 22px 0;
-}
-
-.tools-board .row {
-    margin-bottom: 20px;
-}
-
-.row .options {
-    list-style: none;
-    margin: 10px 0 0 5px;
-}
-
-.row .options .option {
-    display: flex;
+::-webkit-scrollbar-thumb {
+    background: var(--orange);
     cursor: pointer;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.option:is(:hover, .active) img {
-    filter: invert(17%) sepia(90%) saturate(3000%) hue-rotate(900deg) brightness(100%) contrast(100%);
-}
-
-.option :where(span, label) {
-    color: dimgray;
-    cursor: pointer;
-    padding-left: 10px;
-}
-
-.option:is(:hover, .active) :where(span, label) {
-    color: darksalmon;
-}
-
-.option #fill-color {
-    cursor: pointer;
-    height: 14px;
-    width: 14px;
-}
-
-#fill-color:checked~label {
-    color: darksalmon;
-}
-
-.option #size-slider {
-    width: 100%;
-    height: 5px;
-    margin-top: 10px;
-}
-
-.option #alpha-slider {
-    width: 100%;
-    height: 5px;
-    margin-top: 10px;
-}
-
-.colors .options {
-    display: flex;
-    justify-content: space-between;
-}
-
-.colors .option {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    margin-top: 3px;
-    position: relative;
-}
-
-.colors .option:nth-child(1) {
-    background-color: white;
-    border: 1px solid black;
-}
-
-.colors .option:nth-child(2) {
-    background-color: black;
-}
-
-.colors .option:nth-child(3) {
-    background-color: red;
-}
-
-.colors .option:nth-child(4) {
-    background-color: yellow;
-}
-
-.colors .option:nth-child(5) {
-    background-color: greenyellow;
-}
-
-.colors .option:nth-child(6) {
-    background-color: blue;
-}
-
-.colors .option.selected::before {
-    position: absolute;
-    content: "";
-    top: 50%;
-    left: 50%;
-    height: 12px;
-    width: 12px;
-    background: inherit;
-    border-radius: inherit;
-    border: 2px solid white;
-    transform: translate(-50%, -50%);
-}
-
-.colors .option:first-child.selected::before {
-    border-color: black;
-}
-
-.option #color-picker {
-    opacity: 0;
-    cursor: pointer;
-}
-
-.buttons button {
-    width: 100%;
-    color: white;
-    border: none;
-    outline: none;
-    padding: 11px 0;
-    font-size: 0, 9rem;
-    margin-bottom: 13px;
-    background: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.buttons .clear-canvas {
-    color: dimgray;
-    border: 1px solid dimgray;
-    transition: all 0.3s ease;
-}
-
-.clear-canvas:hover {
-    color: white;
-    background: dimgray;
-}
-
-.buttons .color-canvas {
-    color: dimgray;
-    border: 1px solid dimgray;
-    transition: all 0.3s ease;
-}
-
-.color-canvas:hover {
-    color: white;
-    background: dimgray;
-}
-
-.buttons .save-img {
-    background: #4A98F7;
-    border: 1px solid #4A98F7;
-    transition: all 0.3s ease;
-}
-
-.drawing-board {
-    flex: 1;
-}
-
-.drawing-board canvas {
-    width: 810px;
-    height: 668px;
-}
-
-canvas {
-    position: absolute;
-    display: flex;
-    background: transparent;
-    border-radius: 7px;
-    opacity: 1;
-    touch-action: none; 
-    cursor: none;
 }

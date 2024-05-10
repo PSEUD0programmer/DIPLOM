@@ -1,0 +1,20 @@
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+}
+
+.nav-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.nav-item:nth-child(3) {
+    margin-left: auto;
+}
+
+.nav-btn {
+    background: var(--clr_main_1);
+}

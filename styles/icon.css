@@ -1,0 +1,13 @@
+.icon {
+    width: 50%;
+    height: 50%;
+}
+
+.icon.dark{
+    filter: var(--flt_dark);
+
+}
+
+.icon.light {
+    filter: var(--flt_light);
+}

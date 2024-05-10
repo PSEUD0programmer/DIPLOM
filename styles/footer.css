@@ -1,0 +1,18 @@
+.footer-container {
+    color: var(--white);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-inline: 20px;
+    >span{
+        padding: 5px;
+        border-radius: 5px;
+        height: max-content;
+        background: var(--blue);
+    }
+    >img{
+        width: 50px;
+        margin-left: auto;
+    }
+}

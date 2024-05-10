@@ -1,0 +1,126 @@
+body {
+    background: var(--clr_main_1);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    min-height: 100vh;
+}
+
+.main-container {
+    display: grid;
+    grid-template-areas:
+        'nav'
+        'content';
+    grid-template-columns: 980px;
+    grid-template-rows: 100px 500px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -490px;
+    margin-top: -350px;
+}
+
+.main-item:nth-child(1) {
+    grid-area: nav;
+    margin-bottom: 50px;
+    background: var(--clr_main_2);
+}
+
+.main-item:nth-child(2) {
+    grid-area: content;
+}
+
+.draw-container {
+    display: grid;
+    grid-template-areas:
+        'pallet canvas chat'
+        'tools canvas chat';
+    grid-template-columns: 160px 500px 320px;
+    grid-template-rows: 250px 250px;
+}
+
+.draw-item:nth-child(1) {
+    grid-area: pallet;
+    margin: 0 15px 10px 0;
+}
+
+.draw-item:nth-child(2) {
+    grid-area: tools;
+    margin: 10px 15px 0 0;
+    background: var(--clr_main_2);
+}
+
+.draw-item:nth-child(3) {
+    grid-area: canvas;
+    touch-action: none;
+    background: var(--clr_main_2);
+}
+
+.draw-item:nth-child(4) {
+    grid-area: chat;
+    margin-left: 50px;
+}
+
+.user-table {
+    display: grid;
+    grid-template-areas:
+        'sort user'
+        'table user';
+    grid-template-columns: 600px 330px;
+    grid-template-rows: 70px 410px;
+    gap: 20px 50px;
+}
+
+.user-item:nth-child(1) {
+    grid-area: sort;
+    background: var(--clr_main_2);
+}
+
+.user-item:nth-child(2) {
+    grid-area: table;
+    background: var(--clr_main_2);
+}
+
+.user-item:nth-child(3) {
+    grid-area: user;
+    background: var(--clr_main_3);
+}
+
+.user-profile {
+    display: grid;
+    grid-template-areas:
+        'img name'
+        'img lvl'
+        'about about';
+    grid-template-columns: 150px 135px;
+    grid-template-rows: 70px 70px 300px;
+    padding: 15px;
+    gap: 15px;
+}
+
+.profile-item:nth-child(1) {
+    grid-area: img;
+}
+
+.profile-item:nth-child(2) {
+    grid-area: name;
+    align-self: end;
+}
+
+.profile-item:nth-child(3) {
+    grid-area: lvl;
+}
+
+.profile-item:nth-child(4) {
+    grid-area: about;
+    height: calc(100% - 10px);
+    padding: 5px;
+    background: var(--clr_main_2);
+}
+
+.footer-container {
+    display: flex;
+    gap: 10px;
+    height: 50px;
+}

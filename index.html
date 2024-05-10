@@ -4,89 +4,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paint</title>
+    <title>Диплом</title>
     <link rel="stylesheet" href="styles/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="scripts/CanvasStack-2v01.js"></script> -->
-    <script src="scripts/script.js" defer></script>
+
+    <script src="script/main.js" defer></script>
+    <script src="script/messenge.js" defer></script>
+    <script src="script/draw.js" defer></script>
+    <script src="script/sort.js" defer></script>
 </head>
 
 <body>
-    <div class="container">
-        <section class="tools-board">
-            <div class="row">
-                <label class="title">Shapes</label>
-                <ul class="options">
-                    <li class="option tool" id="line">
-                        <img src="icons/line.svg" alt="">
-                        <span>Line</span>
-                    </li>
-                    <li class="option tool" id="rectangle">
-                        <img src="icons/rectangle.svg" alt="">
-                        <span>Rectangle</span>
-                    </li>
-                    <li class="option tool" id="circle">
-                        <img src="icons/circle.svg" alt="">
-                        <span>Circle</span>
-                    </li>
-                    <li class="option tool" id="triangle">
-                        <img src="icons/triangle.svg" alt="">
-                        <span>Triangle</span>
-                    </li>
-                    <li class="option">
-                        <input type="checkbox" id="fill-color">
-                        <label for="fill-color">Fill color</label>
-                    </li>
-                </ul>
-            </div>
-            <div class="row">
-                <label class="title">Option</label>
-                <ul class="options">
-                    <li class="option active tool" id="brush">
-                        <img src="icons/brush.svg" alt="">
-                        <span>Brush</span>
-                    </li>
-                    <li class="option tool" id="eraser">
-                        <img src="icons/eraser.svg" alt="">
-                        <span>Eraser</span>
-                    </li>
-                    <li class="option">
-                        <input type="range" id="size-slider" min="1" max="100" value="10">
-                    </li>
-                    <li class="option">
-                        <input type="range" id="alpha-slider" min="0.05" max="1" value="1" step="0.05">
-                    </li>
-                </ul>
-            </div>
-            <div class="row colors">
-                <label class="title">Colors</label>
-                <ul class="options">
-                    <li class="option"></li>
-                    <li class="option selected"></li>
-                    <li class="option"></li>
-                    <li class="option"></li>
-                    <li class="option"></li>
-                    <li class="option">
-                        <input type="color" id="color-picker" value="#0000ff">
-                    </li>
+    <main class="main-container">
+        <div class="main-item nav">
+            <button class="nav-item nav-btn active" id="draw-container">
+                <img class="icon light" src="icons/brush.svg" alt="">
+            </button>
+            <button class="nav-item nav-btn" id="user-table">
+                <img class="icon light" src="icons/user.svg" alt="">
+            </button>
 
-                </ul>
+            <img class="nav-item main-icon dark" src="icons/palette.svg" alt="">
+        </div>
+
+        <div class="main-item content">
+            <div class="content-item draw-container">
+                <div class="draw-item pallet">
+                    <button class="color" id="#000000"></button>
+                    <button class="color" id="#413344"></button>
+                    <button class="color" id="#806485"></button>
+                    <button class="color" id="#a662a8"></button>
+                    <button class="color" id="#664972"></button>
+                    <button class="color" id="#91bcdd"></button>
+                    <button class="color" id="#6e8da9"></button>
+                    <button class="color" id="#567d99"></button>
+                    <button class="color" id="#305662"></button>
+                    <button class="color" id="#315c45"></button>
+                    <button class="color" id="#8a9a65"></button>
+                    <button class="color" id="#b6b975"></button>
+                    <button class="color" id="#c64e50"></button>
+                    <button class="color" id="#bc203e"></button>
+                    <button class="color" id="#640e22"></button>
+                    <button class="color" id="#c0392b"></button>
+                    <button class="color" id="#e74c3c"></button>
+                    <button class="color" id="#d35400"></button>
+                    <button class="color" id="#f39c12"></button>
+                    <button class="color" id="#f1c40f"></button>
+                    <button class="color" id="#8e44ad"></button>
+                    <button class="color" id="#2980b9"></button>
+                    <button class="color" id="#3498db"></button>
+                    <button class="color" id="#27ae60"></button>
+                    <button class="color" id="#2ecc71"></button>
+                    <button class="color" id="#2c3e50"></button>
+                    <button class="color" id="#445c74"></button>
+                    <button class="color" id="#95a5a6"></button>
+                    <button class="color" id="#bdc3c7"></button>
+                    <button class="color" id="#ecf0f1"></button>
+                    <button class="color-selected active">
+                        <img class='icon light' src="icons/shape.svg" alt="">
+                        <input type="color" class="pallet-color" value="#91C3CE">
+                    </button>
+                </div>
+
+                <div class="draw-item tools">
+                    <button class="tools-container-btn active" id="shapes"><img class='icon light' src="icons/shape.svg" alt=""></button>
+                    <button class="tools-container-btn" id="brash-settings"><img class='icon light' src="icons/brush.svg" alt=""></button>
+                    <button class="tools-container-btn" id="layers"><img class='icon light' src="icons/layer.svg" alt=""></button>
+
+                    <div class="tools-item shapes">
+                        <button class="shape-btn" id="line"><img class='icon dark' src="icons/line.svg" alt=""></button>
+                        <button class="shape-btn" id="rectangle"><img class='icon dark' src="icons/rectangle.svg" alt=""></button>
+                        <button class="shape-btn" id="circle"><img class='icon dark' src="icons/circle.svg" alt=""></button>
+                        <button class="shape-btn" id="triangle"><img class='icon dark' src="icons/triangle.svg" alt=""></button>
+                        <button class="shape-btn active" id="brush"><img class='icon dark' src="icons/brush.svg" alt=""></button>
+                        <button class="shape-btn" id="eraser"><img class='icon dark' src="icons/eraser.svg" alt=""></button>
+                        <button class="shape-btn" id="colorPicker"><img class='icon dark' src="icons/color-picker.svg" alt=""></button>
+                    </div>
+
+                    <div class="tools-item brash-settings" style="display: none;">
+                        <input class="slider" type="range" id="brash-size" min="1" max="100" value="10">
+                        <input class="slider" type="range" id="brash-alpha" min="0.05" max="1" value="1" step="0.05">
+                    </div>
+
+                    <div class="tools-item layers" style="display: none;">
+                        <button class="layer-btn active" id="1"><img src="icons/layer.svg" alt=""></button>
+                        <button class="layer-btn" id="2"><img src="icons/layer.svg" alt=""></button>
+                        <button class="layer-btn" id="3"><img src="icons/layer.svg" alt=""></button>
+
+                        <input class="slider" type="range" id="layer-alpha" min="0" max="1" value="1" step="0.05">
+                        <button class="visibility active"><img src="icons/eye.svg" alt=""></button>
+                    </div>
+
+                    <button class="save-img">Save As Images</button>
+                    <button class="tools-btn" id="undo"><img src="icons/undoRedo.svg" alt=""></button>
+                    <button class="tools-btn" id="redo"><img src="icons/undoRedo.svg" style="transform: rotate(180deg);"
+                            alt=""></button>
+                    <button class="tools-btn active" id="delete"><img src="icons/delete.svg" alt=""></button>
+                </div>
+
+                <div class="draw-item canvas-container">
+                    <canvas class="canvas" style="opacity: 0;">Ваш браузер не поддерживает canvas!</canvas>
+                    <canvas class="layer" id="1" style="opacity: 1;"></canvas>
+                    <canvas class="layer" id="2" style="opacity: 1;"></canvas>
+                    <canvas class="layer" id="3" style="opacity: 1;"></canvas>
+                    <canvas class="draw"></canvas>
+                    <canvas class="cursor"></canvas>
+
+                    <div class="work-space"></div>
+                </div>
+
+                <div class="draw-item chat">
+                    <div class="dialog-container">
+                        <ul class="dialog">
+                            <li>
+                                <img class="user-icon" src="icons/moder.svg" alt=""><span class="user-name">Администрация</span>
+                                <p>Здесь можно написать свое сообщение!</p>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="input-container">
+                        <input class="chat-input" type="text">
+                        <span class="chat-count">0/100</span>
+                        <button class="chat-btn"><img class="icon light" src="icons/send.svg" alt=""></button>
+                    </div>
+                </div>
             </div>
-            <div class="row buttons">
-                <button class="clear-canvas">Clear Canvas</button>
-                <button class="color-canvas">Color Canvas</button>
-                <button class="save-img">Save As Images</button>
+
+            <div class="content-item user-table" style="display: none;">
+                <div class="user-item sort">
+                    <button class="sort-btn active" id="increasing"><img class="icon light" src="icons/undoRedo.svg" alt=""></button>
+                    <button class="sort-btn" id="abc">А/Я</button>
+                    <button class="sort-btn" id="level">LVL</button>
+                    <button class="sort-btn" id="online">В сети</button>
+
+                    <div class="custom-select">
+                        <select class="role-select">
+                            <option value="user">Пользователь</option>
+                            <option value="moder">Модератор</option>
+                        </select>
+                        <span class="custom-arrow"></span>
+                    </div>
+                </div>
+
+                <div class="user-item table">
+                    <ol>
+                        <!-- <li class="user-list"><span class="user-index">1</span>
+                            <img class="user-icon" src="icons/user.svg" alt=""><span
+                                class="user-name">ОЛЕГ</span><span class="user-lvl">99</span><span
+                                class="user-online"></span>
+                        </li> -->
+                    </ol>
+                </div>
+
+                <div class="user-item user-profile">
+                    <img class="profile-item user-img" src="img/0.png" alt="">
+                    <span class="profile-item user-name">Имя</span>
+                    <span class="profile-item user-lvl">Уровень</span>
+                    <p class="profile-item user-about">Здесь будет отображаться описание пользователя.</p>
+                </div>
             </div>
-        </section>
-        <section class="drawing-board">
-            <canvas id="canvas" >Ваш браузер не поддерживает canvas!</canvas>
-            <canvas id="layer-1"></canvas>
-            <canvas id="layer-2"></canvas>
-            <canvas id="layer-3"></canvas>
-            <canvas id="cursor"></canvas>
-            <canvas id="draw"></canvas>
-        </section>
-    </div>
+
+            <div class="content-item info-table" style="display: none;">
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-container">
+        <span>HTML</span>
+        <span>CSS</span>
+        <span>Java Script</span>
+        <span>Canvas</span>
+        <img class="main-icon dark" src="icons/palette.svg" alt="">
+    </footer>
+
 </body>
 
 </html>
