@@ -4,12 +4,12 @@ const addBtn = document.querySelector('.chat-btn'),
     inputMessenge = document.querySelector('.chat-input'),
 
     symbolLimit = 100,
-    userName = 'ТЕСТ';
+    userName = 'Гость';
 
 
 function addMessenge() {
     let userInput = inputMessenge.value;
-    if (userInput === '') return;
+    if (!addBtn.classList.contains('active')) return;
     inputMessenge.value = '';
 
     let listItem = document.createElement('li');
@@ -18,15 +18,24 @@ function addMessenge() {
     <p>${userInput}</p>`
     messengeList.appendChild(listItem);
     messengeLimit.innerHTML = `0/${symbolLimit}`
+
+    addBtn.classList.remove('active');
+    messengeLimit.classList.remove('active');
 }
 
 function countSmbl() {
     let userInput = inputMessenge.value;
+    if (userInput === '')
+        addBtn.classList.remove('active');
+    else
+        addBtn.classList.add('active');
+
     if (userInput.length > symbolLimit) {
-        inputMessenge.value = userInput = userInput.slice(0, -1);
+        inputMessenge.value = userInput = userInput.substring(0, symbolLimit);
         messengeLimit.classList.add('active');
     } else
         messengeLimit.classList.remove('active');
+
     messengeLimit.innerHTML = `${userInput.length}/${symbolLimit}`
 }
 
