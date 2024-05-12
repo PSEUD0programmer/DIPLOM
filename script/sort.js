@@ -139,7 +139,6 @@ let roleName = 'Игрок',
 getSorteArray(playerList, 'name');
 
 btnSortTrigger.addEventListener('click', () => {
-    console.log(1)
     if (sortTrigger === true)
         sortTrigger = false;
     else
@@ -176,10 +175,11 @@ function updateUserList() {
                 document.querySelector('.user-list.active').classList.remove('active');
             list.classList.add('active');
 
+            console.log(list.id);
             displayProfile(list.id);
         });
     })
-}
+};
 
 //сортировка
 function getSorteArray(arr, key) {
@@ -324,8 +324,13 @@ function displayArr(arr) {
 
 //отображение профиля
 function displayProfile(id) {
-    profileImg.src = playerList[Number(id) - 1].profile.img;
-    profileName.innerHTML = playerList[Number(id) - 1].name;
-    profileLvl.innerHTML = playerList[Number(id) - 1].level;
-    profileAbout.innerHTML = playerList[Number(id) - 1].profile.about;
+    for (let i = 0; i < playerList.length; i++) {
+        if (playerList[i].uid == id) {
+            profileImg.src = playerList[i].profile.img;
+            profileName.innerHTML = playerList[i].name;
+            profileLvl.innerHTML = playerList[i].level;
+            profileAbout.innerHTML = playerList[i].profile.about;
+            return;
+        }
+    }
 }
