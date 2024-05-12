@@ -233,6 +233,10 @@ function changeLayers(id) {
 //РИСОВАНИЕ
 //начало
 function drawStart(e) {
+    cursorPosition = {
+        x: (e.clientX - canvasPosition.left) / canvasScale,
+        y: (e.clientY - canvasPosition.top) / canvasScale
+    };
     lastPoint = cursorPosition;
     draw_ctx.strokeStyle = selectedColor;
     draw_ctx.fillStyle = selectedColor;
@@ -243,7 +247,7 @@ function drawStart(e) {
 
     snapShot = draw_ctx.getImageData(0, 0, canvasSize.w, canvasSize.h);
     isIdle = false;
-    drawMove(e);
+    drawMove();
 }
 
 //конец
