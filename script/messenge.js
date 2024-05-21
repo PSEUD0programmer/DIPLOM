@@ -39,8 +39,8 @@ function countSmbl() {
     messengeLimit.innerHTML = `${userInput.length}/${symbolLimit}`
 }
 
-addBtn.addEventListener('click', addMessenge, false)
-inputMessenge.addEventListener('input', countSmbl, false)
+addBtn.addEventListener('click', addMessenge, false);
+inputMessenge.addEventListener('input', countSmbl, false);
 inputMessenge.addEventListener('keydown', (e) => {
     var code = e.keyCode;
     switch (code) {
@@ -48,4 +48,4 @@ inputMessenge.addEventListener('keydown', (e) => {
             addMessenge();
             break;
     }
-}, false)
+}, false);

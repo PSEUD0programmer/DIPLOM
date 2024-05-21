@@ -1,6 +1,6 @@
 const playerList = [
     {
-        uid: 1,
+        uid: '#0001',
         name: 'Шишкин',
         level: 11,
         role: 'Игрок',
@@ -12,7 +12,7 @@ const playerList = [
         }
     },
     {
-        uid: 2,
+        uid: '#0002',
         name: 'Олег',
         level: 99,
         role: 'Игрок',
@@ -24,7 +24,7 @@ const playerList = [
         }
     },
     {
-        uid: 3,
+        uid: '#0003',
         name: 'Михалыч',
         level: 2,
         role: 'Модератор',
@@ -36,7 +36,7 @@ const playerList = [
         }
     },
     {
-        uid: 4,
+        uid: '#0004',
         name: 'Инакентий',
         level: 77,
         role: 'Игрок',
@@ -48,7 +48,7 @@ const playerList = [
         }
     },
     {
-        uid: 5,
+        uid: '#0005',
         name: 'Глеб',
         level: 50,
         role: 'Игрок',
@@ -60,7 +60,7 @@ const playerList = [
         }
     },
     {
-        uid: 6,
+        uid: '#0006',
         name: 'Валера',
         level: 9,
         role: 'Игрок',
@@ -72,7 +72,7 @@ const playerList = [
         }
     },
     {
-        uid: 7,
+        uid: '#0007',
         name: 'Захар',
         level: 50,
         role: 'Игрок',
@@ -84,7 +84,7 @@ const playerList = [
         }
     },
     {
-        uid: 8,
+        uid: '#0008',
         name: 'Ксюша',
         level: 1,
         role: 'Игрок',
@@ -96,7 +96,7 @@ const playerList = [
         }
     },
     {
-        uid: 9,
+        uid: '#0009',
         name: 'Максим',
         level: 99,
         role: 'Модератор',
@@ -108,7 +108,7 @@ const playerList = [
         }
     },
     {
-        uid: 10,
+        uid: '#0010',
         name: 'Влад',
         level: 3,
         role: 'Игрок',
@@ -181,9 +181,10 @@ function updateUserList() {
 };
 
 //сортировка
-function getSorteArray(arr, key) {
+function getSorteArray(list, key) {
+    let arr = [...list];
     switch (key) {
-        case 'level': case 'scope': case 'days':
+        case 'level':
             // console.log(`\nОтсортированно по возрастанию по тегу: <${key}>\n`);
             return displayArr(sorteNum(arr, key));
 
@@ -191,7 +192,7 @@ function getSorteArray(arr, key) {
             // console.log(`\nОтсортированно по алфавиту по тегу: <${key}>\n`);
             return displayArr(sorteAbc(arr, key));
 
-        case 'online': case 'ban': case 'role':
+        case 'online': case 'role':
             // console.log(`\nОтсортированно по тегу: <${key}>\n`);
             return displayArr(sorteKey(arr, key));
 
@@ -203,66 +204,26 @@ function getSorteArray(arr, key) {
 //сортировка чисел по порядку
 function sorteNum(arr, key) {
     //понижение
-    if (sortTrigger == true) {
-        for (let i = 0; i < arr.length - 1; i++) {
-            let compareNum = Math.min(...arr.map((i) => i[key]));
-            for (let j = 0 + i; j < arr.length; j++) {
-                if (arr[j][key] > compareNum) {
-                    let swap = arr[j];
-                    compareNum = arr[j][key];
-                    arr[j] = arr[0 + i];
-                    arr[0 + i] = swap;
-                }
-            }
-        }
-    }
+    if (sortTrigger === true)
+        arr.sort((a, b) => b[key] - a[key]);
+
     //повышение
-    else {
-        for (let i = 0; i < arr.length - 1; i++) {
-            let compareNum = Math.max(...arr.map((i) => i[key]));
-            for (let j = 0 + i; j < arr.length; j++) {
-                if (arr[j][key] < compareNum) {
-                    let swap = arr[j];
-                    compareNum = arr[j][key];
-                    arr[j] = arr[0 + i];
-                    arr[0 + i] = swap;
-                }
-            }
-        }
-    }
+    else
+        arr.sort((a, b) => a[key] - b[key]);
+
     return arr;
 }
 
-//сортировка по алфавиту первых символов
+//сортировка по алфавиту
 function sorteAbc(arr, key) {
     //понижение
-    if (sortTrigger == true) {
-        for (let i = 0; i < arr.length - 1; i++) {
-            let compareWord = 'A';
-            for (let j = 0 + i; j < arr.length; j++) {
-                if (arr[j][key][0] > compareWord) {
-                    let swap = arr[j];
-                    compareWord = arr[j][key][0];
-                    arr[j] = arr[0 + i];
-                    arr[0 + i] = swap;
-                }
-            }
-        }
-    }
+    if (sortTrigger === true)
+        arr.sort((a, b) => b[key].localeCompare(a[key]));
+
     //повышение
-    else {
-        for (let i = 0; i < arr.length - 1; i++) {
-            let compareWord = 'Я';
-            for (let j = 0 + i; j < arr.length; j++) {
-                if (arr[j][key][0] < compareWord) {
-                    let swap = arr[j];
-                    compareWord = arr[j][key][0];
-                    arr[j] = arr[0 + i];
-                    arr[0 + i] = swap;
-                }
-            }
-        }
-    }
+    else
+        arr.sort((a, b) => a[key].localeCompare(b[key]));
+
     return arr;
 }
 
@@ -270,9 +231,7 @@ function sorteAbc(arr, key) {
 function sorteKey(arr, key) {
     let newArr = [];
     for (let item in arr) {
-        if (key == 'ban' && arr[item].banStatus[key] == false)
-            continue;
-        else if (key == 'role' && arr[item][key] != roleName)
+        if (key == 'role' && arr[item][key] != roleName)
             continue;
         else if (arr[item][key] == false)
             continue;
