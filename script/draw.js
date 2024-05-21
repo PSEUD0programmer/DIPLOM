@@ -394,7 +394,7 @@ function fillFigure(point) {
     for (var i = 1; i < pointFillFigureArray.length - 2; i++) {
         var xc = (pointFillFigureArray[i].x + pointFillFigureArray[i + 1].x) / 2;
         var yc = (pointFillFigureArray[i].y + pointFillFigureArray[i + 1].y) / 2;
-        draw_ctx.lineTo(pointFillFigureArray[i].x, pointFillFigureArray[i].y, xc, yc);
+        draw_ctx.quadraticCurveTo(pointFillFigureArray[i].x, pointFillFigureArray[i].y, xc, yc);
     }
 }
 

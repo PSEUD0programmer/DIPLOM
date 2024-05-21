@@ -41,3 +41,11 @@ function countSmbl() {
 
 addBtn.addEventListener('click', addMessenge, false)
 inputMessenge.addEventListener('input', countSmbl, false)
+inputMessenge.addEventListener('keydown', (e) => {
+    var code = e.keyCode;
+    switch (code) {
+        case 13:// enter
+            addMessenge();
+            break;
+    }
+}, false)
