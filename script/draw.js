@@ -1,5 +1,6 @@
 //инструменты
-const shapeBtns = document.querySelectorAll(".shape-btn"),
+const drawBtn = document.querySelector(".nav-btn#draw-container"),
+    shapeBtns = document.querySelectorAll(".shape-btn"),
     toolBtns = document.querySelectorAll(".tools-btn"),
     sizeSlider = document.querySelector("#brash-size"),
     alphaSlider = document.querySelector("#brash-alpha"),
@@ -19,14 +20,15 @@ const shapeBtns = document.querySelectorAll(".shape-btn"),
     layerList = document.querySelectorAll('.layer'),
     cursorLayer = document.querySelector('.cursor'),
     //контексты
-    canvas_ctx = canvas.getContext('2d'),
-    draw_ctx = draw.getContext('2d'),
-    cursorLayer_ctx = cursorLayer.getContext('2d');
+    canvas_ctx = canvas.getContext('2d', { willReadFrequently: true }),
+    draw_ctx = draw.getContext('2d', { willReadFrequently: true }),
+    cursorLayer_ctx = cursorLayer.getContext('2d', { willReadFrequently: true });
 
 //переменные
 let snapShot, lastPoint, cursorPosition, canvasPosition, canvasScale, canvasSize,
     //ключи
     isIdle = true,
+    isWork = false,
     isWorkSpaceVis = false,
     //draw
     selectedTool = "brush",//инструмент
@@ -40,7 +42,8 @@ let snapShot, lastPoint, cursorPosition, canvasPosition, canvasScale, canvasSize
     layerArr = [[], [], [1, 1, 1]],//[element, context, opacity]
     //undo/redo
     cPushArray = [],
-    pointArray = [],
+    pointSmoothBrushArray = [],
+    pointFillFigureArray = [],
     cStep = -1,
     cLimit = 50,
     //afk
@@ -79,6 +82,8 @@ window.addEventListener("load", () => {
     //заливка слоя
     setCanvasBackground(canvas_ctx);
     cPush();
+
+    isWork = true;
 });
 
 //КНОПКИ
@@ -254,6 +259,15 @@ function drawStart(e) {
 function drawEnd() {
     if (isIdle) return;
     isIdle = true;
+
+    if (selectedTool === 'fillFigure') {
+        draw_ctx.putImageData(snapShot, 0, 0);
+        draw_ctx.closePath();
+        draw_ctx.fill();
+        pointFillFigureArray = [];
+        draw_ctx.lineWidth = brushWhidth;
+    }
+
     (layerArr[1][selectedLayer - 1]).globalAlpha = brushAlpha;
     if (selectedTool === "eraser") { (layerArr[1][selectedLayer - 1]).globalCompositeOperation = "destination-out"; }
     if (selectedTool === "colorPicker") return;
@@ -262,7 +276,7 @@ function drawEnd() {
     (layerArr[1][selectedLayer - 1]).globalAlpha = 1;
     (layerArr[1][selectedLayer - 1]).globalCompositeOperation = "source-over"
     cPush();
-    pointArray = [];
+    pointSmoothBrushArray = [];
     changeActive(toolBtns, 'undo', 'delete');
 }
 
@@ -286,6 +300,10 @@ function drawMove() {
     } else if (selectedTool === "line") {
         draw_ctx.putImageData(snapShot, 0, 0);
         line();
+    } else if (selectedTool === "fillFigure") {
+        draw_ctx.lineWidth = 1;
+        smoothBrush(cursorPosition);
+        fillFigure(cursorPosition);
     } else if (selectedTool === "colorPicker") {
         workSpace.addEventListener('click', () => {
             selectedColor = colorPicker();
@@ -301,8 +319,8 @@ function drawMove() {
 
 //сглаживание
 function smoothBrush(point) {
-    pointArray.push(point);
-    if (pointArray.length < 2) {
+    pointSmoothBrushArray.push(point);
+    if (pointSmoothBrushArray.length < 2) {
         draw_ctx.beginPath();
         draw_ctx.moveTo(lastPoint.x, lastPoint.y);
         draw_ctx.lineTo(lastPoint.x, lastPoint.y);
@@ -311,15 +329,15 @@ function smoothBrush(point) {
         return;
     }
     draw_ctx.beginPath();
-    draw_ctx.moveTo(pointArray[0].x, pointArray[0].y);
+    draw_ctx.moveTo(pointSmoothBrushArray[0].x, pointSmoothBrushArray[0].y);
     draw_ctx.putImageData(snapShot, 0, 0);
 
-    for (var i = 1; i < pointArray.length - 2; i++) {
-        var xc = (pointArray[i].x + pointArray[i + 1].x) / 2;
-        var yc = (pointArray[i].y + pointArray[i + 1].y) / 2;
-        draw_ctx.quadraticCurveTo(pointArray[i].x, pointArray[i].y, xc, yc);
-        pointArray.shift();
-        pointArray[0] = { x: xc, y: yc };
+    for (var i = 1; i < pointSmoothBrushArray.length - 2; i++) {
+        var xc = (pointSmoothBrushArray[i].x + pointSmoothBrushArray[i + 1].x) / 2;
+        var yc = (pointSmoothBrushArray[i].y + pointSmoothBrushArray[i + 1].y) / 2;
+        draw_ctx.quadraticCurveTo(pointSmoothBrushArray[i].x, pointSmoothBrushArray[i].y, xc, yc);
+        pointSmoothBrushArray.shift();
+        pointSmoothBrushArray[0] = { x: xc, y: yc };
     }
     draw_ctx.stroke();
     snapShot = draw_ctx.getImageData(0, 0, canvasSize.w, canvasSize.h);
@@ -358,13 +376,35 @@ function triangle() {
     draw_ctx.stroke();
 }
 
+//заливка фигуры
+function fillFigure(point) {
+    pointFillFigureArray.push(point);
+    if (pointFillFigureArray.length < 2) {
+        draw_ctx.beginPath();
+        draw_ctx.moveTo(lastPoint.x, lastPoint.y);
+        draw_ctx.lineTo(lastPoint.x, lastPoint.y);
+        draw_ctx.stroke();
+        snapShot = draw_ctx.getImageData(0, 0, canvasSize.w, canvasSize.h);
+        return;
+    }
+
+    draw_ctx.beginPath();
+    draw_ctx.moveTo(pointFillFigureArray[0].x, pointFillFigureArray[0].y);
+
+    for (var i = 1; i < pointFillFigureArray.length - 2; i++) {
+        var xc = (pointFillFigureArray[i].x + pointFillFigureArray[i + 1].x) / 2;
+        var yc = (pointFillFigureArray[i].y + pointFillFigureArray[i + 1].y) / 2;
+        draw_ctx.lineTo(pointFillFigureArray[i].x, pointFillFigureArray[i].y, xc, yc);
+    }
+}
+
 //пипетка
 function colorPicker() {
     let pixel;
 
     for (let i = layerArr[1].length; i > 0; i--) {
         canvas_ctx.globalAlpha = layerArr[2][layerArr[2].length - i]
-        canvas_ctx.drawImage(layerArr[0][layerArr[0].length - i], 0, 0);
+        canvas_ctx.drawImage(layerArr[0][layerArr[0].length - i], cursorPosition.x, cursorPosition.y, 2, 2, cursorPosition.x - 1, cursorPosition.y - 1, 2, 2);
     }
 
     pixel = canvas_ctx.getImageData(cursorPosition.x, cursorPosition.y, 1, 1).data;
@@ -461,6 +501,8 @@ function changeActive(list, id, not) {
 
 //горячие клавиши
 function check(e) {
+    if (document.activeElement.classList.contains('chat-input')) return;
+
     var code = e.keyCode;
     switch (code) {
         case 67:// c
@@ -523,9 +565,8 @@ function check(e) {
 
 //EVENTS
 //Изменение размера страницы
-window.addEventListener("resize", function () {
-    canvasSizePosition();
-})
+window.addEventListener("resize", canvasSizePosition, false);
+drawBtn.addEventListener("click", canvasSizePosition, false);
 
 window.addEventListener('keydown', this.check, false);
 workSpace.addEventListener("pointerdown", drawStart, false);
@@ -534,6 +575,8 @@ workSpace.addEventListener("pointerout", () => {
     workSpaceVis('off');
 }, false);
 workSpace.addEventListener("pointermove", (e) => {
+    if (isWork === false) return;
+
     cursorPosition = {
         x: (e.clientX - canvasPosition.left) / canvasScale,
         y: (e.clientY - canvasPosition.top) / canvasScale

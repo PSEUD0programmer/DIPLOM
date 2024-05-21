@@ -175,7 +175,6 @@ function updateUserList() {
                 document.querySelector('.user-list.active').classList.remove('active');
             list.classList.add('active');
 
-            console.log(list.id);
             displayProfile(list.id);
         });
     })
