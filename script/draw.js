@@ -158,8 +158,8 @@ shapeBtns.forEach(btn => {
 });
 
 //SLIDERS
-sizeSlider.addEventListener("change", () => brushWhidth = sizeSlider.value);//слайдер толщины кисти
-alphaSlider.addEventListener("change", () => brushAlpha = alphaSlider.value);//слайдер прозрачности кисти
+sizeSlider.addEventListener("change", () => brushWhidth = Number(sizeSlider.value));//слайдер толщины кисти
+alphaSlider.addEventListener("change", () => brushAlpha = Number(alphaSlider.value));//слайдер прозрачности кисти
 
 //слайдер прозрачности слоя
 layerAlpha.addEventListener("change", () => {
@@ -317,7 +317,7 @@ function drawMove() {
     }
 }
 
-//сглаживание
+//гладкое рисование
 function smoothBrush(point) {
     pointSmoothBrushArray.push(point);
     if (pointSmoothBrushArray.length < 2) {
@@ -469,12 +469,35 @@ function cRedo() {
 //курсор
 function drawCursor() {
     cursorLayer_ctx.clearRect(0, 0, canvasSize.w, canvasSize.h);
-    if (selectedTool === 'colorPicker') {
-        cursorLayer_ctx.drawImage(img.cursor.cp, cursorPosition.x - 5, cursorPosition.y - 15, 20, 20);
-    } else {
+
+    const drawPlus = function (originPositionX, originPositionY, color = 'black') {
+        cursorLayer_ctx.strokeStyle = color;
         cursorLayer_ctx.beginPath();
-        cursorLayer_ctx.arc(cursorPosition.x, cursorPosition.y, brushWhidth / 2, 0, 2 * Math.PI);
+        cursorLayer_ctx.moveTo(originPositionX - 3, originPositionY);
+        cursorLayer_ctx.lineTo(originPositionX - 10, originPositionY);
+        cursorLayer_ctx.moveTo(originPositionX + 3, originPositionY);
+        cursorLayer_ctx.lineTo(originPositionX + 10, originPositionY);
+        cursorLayer_ctx.moveTo(originPositionX, originPositionY - 3);
+        cursorLayer_ctx.lineTo(originPositionX, originPositionY - 10);
+        cursorLayer_ctx.moveTo(originPositionX, originPositionY + 3);
+        cursorLayer_ctx.lineTo(originPositionX, originPositionY + 10);
         cursorLayer_ctx.stroke();
+    }
+    const drawArc = function (originPosition, diameter, color = 'black') {
+        cursorLayer_ctx.strokeStyle = color;
+        cursorLayer_ctx.beginPath();
+        cursorLayer_ctx.arc(originPosition.x, originPosition.y, diameter / 2, 0, 2 * Math.PI);
+        cursorLayer_ctx.stroke();
+    }
+
+    if (selectedTool === 'colorPicker')
+        cursorLayer_ctx.drawImage(img.cursor.cp, cursorPosition.x - 5, cursorPosition.y - 15, 20, 20);
+    else if (selectedTool === 'fillFigure') {
+        drawPlus(cursorPosition.x, cursorPosition.y);
+        drawPlus((cursorPosition.x - 1), (cursorPosition.y - 1), 'white');
+    } else {
+        drawArc(cursorPosition, brushWhidth);
+        drawArc(cursorPosition, (brushWhidth + 1), 'white');
     }
 }
 
@@ -534,24 +557,24 @@ function check(e) {
 
         case 219:// ]
             sizeSlider.value = parseFloat(sizeSlider.value) - 5;
-            brushWhidth = sizeSlider.value;
+            brushWhidth = Number(sizeSlider.value);
             drawCursor();
             break;
 
         case 221:// [
             sizeSlider.value = parseFloat(sizeSlider.value) + 5;
-            brushWhidth = sizeSlider.value;
+            brushWhidth = Number(sizeSlider.value);
             drawCursor();
             break;
 
         case 188:// <
             alphaSlider.value = parseFloat(alphaSlider.value) - 0.1;
-            brushAlpha = alphaSlider.value;
+            brushAlpha = Number(alphaSlider.value);
             break;
 
         case 190:// >
             alphaSlider.value = parseFloat(alphaSlider.value) + 0.1;
-            brushAlpha = alphaSlider.value;
+            brushAlpha = Number(alphaSlider.value);
             break;
 
         case 49: changeLayers(1); break;// 1

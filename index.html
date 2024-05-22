@@ -66,40 +66,40 @@
                 </div>
 
                 <div class="draw-item tools">
-                    <button class="tools-container-btn active" id="shapes"><img class='icon light' src="icons/shape.svg" alt=""></button>
-                    <button class="tools-container-btn" id="brash-settings"><img class='icon light' src="icons/brush.svg" alt=""></button>
-                    <button class="tools-container-btn" id="layers"><img class='icon light' src="icons/layer.svg" alt=""></button>
+                    <button title="Инструменты" class="tools-container-btn active" id="shapes"><img class='icon light' src="icons/shape.svg" alt=""></button>
+                    <button title="Кисть" class="tools-container-btn" id="brash-settings"><img class='icon light' src="icons/brush.svg" alt=""></button>
+                    <button title="Слои" class="tools-container-btn" id="layers"><img class='icon light' src="icons/layer.svg" alt=""></button>
 
                     <div class="tools-item shapes">
-                        <button class="shape-btn" id="line"><img class='icon dark' src="icons/line.svg" alt=""></button>
-                        <button class="shape-btn" id="rectangle"><img class='icon dark' src="icons/rectangle.svg" alt=""></button>
-                        <button class="shape-btn" id="circle"><img class='icon dark' src="icons/circle.svg" alt=""></button>
-                        <button class="shape-btn" id="triangle"><img class='icon dark' src="icons/triangle.svg" alt=""></button>
-                        <button class="shape-btn" id="fillFigure"><img class='icon dark' src="icons/fill-figure.svg" alt=""></button>
-                        <button class="shape-btn active" id="brush"><img class='icon dark' src="icons/brush.svg" alt=""></button>
-                        <button class="shape-btn" id="eraser"><img class='icon dark' src="icons/eraser.svg" alt=""></button>
-                        <button class="shape-btn" id="colorPicker"><img class='icon dark' src="icons/color-picker.svg" alt=""></button>
+                        <button title="Линия" class="shape-btn" id="line"><img class='icon dark' src="icons/line.svg" alt=""></button>
+                        <button title="Прямоугольник" class="shape-btn" id="rectangle"><img class='icon dark' src="icons/rectangle.svg" alt=""></button>
+                        <button title="Окружность" class="shape-btn" id="circle"><img class='icon dark' src="icons/circle.svg" alt=""></button>
+                        <button title="Треугольник" class="shape-btn" id="triangle"><img class='icon dark' src="icons/triangle.svg" alt=""></button>
+                        <button title="Чернила" class="shape-btn" id="fillFigure"><img class='icon dark' src="icons/fill-figure.svg" alt=""></button>
+                        <button title="Кисть" class="shape-btn active" id="brush"><img class='icon dark' src="icons/brush.svg" alt=""></button>
+                        <button title="Ластик" class="shape-btn" id="eraser"><img class='icon dark' src="icons/eraser.svg" alt=""></button>
+                        <button title="Пипетка" class="shape-btn" id="colorPicker"><img class='icon dark' src="icons/color-picker.svg" alt=""></button>
                     </div>
 
                     <div class="tools-item brash-settings" style="display: none;">
-                        <input class="slider" type="range" id="brash-size" min="1" max="100" value="10">
-                        <input class="slider" type="range" id="brash-alpha" min="0.05" max="1" value="1" step="0.05">
+                        <input title="Размер" class="slider" type="range" id="brash-size" min="1" max="100" value="10">
+                        <input title="Прозрачность" class="slider" type="range" id="brash-alpha" min="0.05" max="1" value="1" step="0.05">
                     </div>
 
                     <div class="tools-item layers" style="display: none;">
-                        <button class="layer-btn active" id="1"><img src="icons/layer.svg" alt=""></button>
-                        <button class="layer-btn" id="2"><img src="icons/layer.svg" alt=""></button>
-                        <button class="layer-btn" id="3"><img src="icons/layer.svg" alt=""></button>
+                        <button title="1й слой" class="layer-btn active" id="1"><img src="icons/layer.svg" alt=""></button>
+                        <button title="2й слой" class="layer-btn" id="2"><img src="icons/layer.svg" alt=""></button>
+                        <button title="3й слой" class="layer-btn" id="3"><img src="icons/layer.svg" alt=""></button>
 
-                        <input class="slider" type="range" id="layer-alpha" min="0" max="1" value="1" step="0.05">
-                        <button class="visibility active"><img src="icons/eye.svg" alt=""></button>
+                        <input title="Прозрачность" class="slider" type="range" id="layer-alpha" min="0" max="1" value="1" step="0.05">
+                        <button title="Видимость" class="visibility active"><img src="icons/eye.svg" alt=""></button>
                     </div>
 
                     <button class="save-img">Save As Images</button>
-                    <button class="tools-btn" id="undo"><img src="icons/undoRedo.svg" alt=""></button>
-                    <button class="tools-btn" id="redo"><img src="icons/undoRedo.svg" style="transform: rotate(180deg);"
+                    <button title="Отмена" class="tools-btn" id="undo"><img src="icons/undoRedo.svg" alt=""></button>
+                    <button title="Возврат" class="tools-btn" id="redo"><img src="icons/undoRedo.svg" style="transform: rotate(180deg);"
                             alt=""></button>
-                    <button class="tools-btn active" id="delete"><img src="icons/delete.svg" alt=""></button>
+                    <button title="Очистка слоя" class="tools-btn active" id="delete"><img src="icons/delete.svg" alt=""></button>
                 </div>
 
                 <div class="draw-item canvas-container">
@@ -132,10 +132,10 @@
 
             <div class="content-item user-table" style="display: none;">
                 <div class="user-item sort">
-                    <button class="sort-btn active" id="increasing"><img class="icon light" src="icons/undoRedo.svg" alt=""></button>
-                    <button class="sort-btn" id="abc">А/Я</button>
-                    <button class="sort-btn" id="level">LVL</button>
-                    <button class="sort-btn" id="online">В сети</button>
+                    <button title="Возрастание/Убывание" class="sort-btn active" id="increasing"><img class="icon light" src="icons/undoRedo.svg" alt=""></button>
+                    <button title="По алфавиту" class="sort-btn" id="abc">А/Я</button>
+                    <button title="По уровню" class="sort-btn" id="level">LVL</button>
+                    <button title="По онлайну" class="sort-btn" id="online">В сети</button>
 
                     <div class="custom-select">
                         <select class="role-select">
