@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: end;
-    min-height: 100vh;
+    height: 100dvh;
 }
 
 .main-container {
